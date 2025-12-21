@@ -17,36 +17,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         "comments"   => []
     ]);
 
-    // 🔑 EN KRİTİK SATIR
     $manager = getMongoManager();
-
     $manager->executeBulkWrite("cs306.tickets", $bulk);
 
-    echo "Ticket created successfully 🎉";
+    // ✅ PDF’teki gibi: ticket oluşturunca listeye dön
+    header("Location: view_tickets.php");
     exit;
 }
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Ticket</title>
+    <title>Create a Ticket</title>
 </head>
 <body>
-    <h2>Create Support Ticket</h2>
 
-    <form method="post">
-        Username:<br>
-        <input type="text" name="username" required><br><br>
+<!-- ÜST LİNKLER -->
+<p>
+    <a href="view_tickets.php">View Tickets</a><br>
+    <a href="/Tennis_players_database/user">Home</a>
 
-        Message:<br>
-        <textarea name="message" required></textarea><br><br>
+</p>
 
-        <button type="submit">Create</button>
-    </form>
+<h2>Create a Ticket</h2>
 
-    <br>
-    <a href="index.php">Back</a>
+<form method="post">
+    <input type="text" name="username" placeholder="username" required><br><br>
+
+    <textarea name="message" placeholder="message" required></textarea><br><br>
+
+    <button type="submit">Create Ticket</button>
+</form>
+
 </body>
 </html>
