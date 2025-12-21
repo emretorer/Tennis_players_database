@@ -22,7 +22,7 @@ $cursor = $manager->executeQuery("cs306.tickets", $query);
 <h2>Admin Ticket List</h2>
 
 <?php foreach ($cursor as $ticket): ?>
-    <div style="border:1px solid red; padding:10px; margin:10px;">
+    <div style="border:1px solid blue; padding:10px; margin:10px;">
         <b>User:</b> <?= htmlspecialchars($ticket->username) ?><br>
         <b>Message:</b> <?= htmlspecialchars($ticket->message) ?><br>
         <b>Created:</b> <?= htmlspecialchars($ticket->created_at) ?><br>

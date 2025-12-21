@@ -66,9 +66,12 @@ if (isset($_POST["deactivate"])) {
     );
 
     $manager->executeBulkWrite("cs306.tickets", $bulk);
-    header("Location: ticket_list.php");
+
+    // ✅ Admin ana sayfasına dön
+    header("Location: index.php");
     exit;
 }
+
 ?>
 
 <!doctype html>
