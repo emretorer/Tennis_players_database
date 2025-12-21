@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $manager->executeBulkWrite("cs306.tickets", $bulk);
 
     // ✅ PDF’teki gibi: ticket oluşturunca listeye dön
-    header("Location: view_tickets.php");
+    header("Location: ticket_list.php");
     exit;
 }
 ?>
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!-- ÜST LİNKLER -->
 <p>
-    <a href="view_tickets.php">View Tickets</a><br>
+    <a href="ticket_list.php">View Tickets</a><br>
     <a href="/Tennis_players_database/user">Home</a>
 
 </p>

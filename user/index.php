@@ -17,7 +17,5 @@
     <li><a href="support/create_ticket.php">Create Support Ticket</a></li>
     <li><a href="../admin/index.php">Admin Panel</a></li>
   </ul>
-
-  <p>MySQL test: <a href="test_db.php">test_db.php</a></p>
 </body>
 </html>
