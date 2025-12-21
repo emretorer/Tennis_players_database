@@ -47,6 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 
     <br>
-    <a href="index.php">Back</a>
+    <a href="index.php">Go To Homepage</a>
 </body>
 </html>
