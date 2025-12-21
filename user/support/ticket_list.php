@@ -45,7 +45,7 @@ if ($selected !== "") {
     <button type="submit">Select</button>
   </form>
 
-  <a href="create_ticket.php">+ Create Ticket</a>
+  <a href="create_ticket.php">Create a Ticket</a>
 
   <hr>
   <h3>Results:</h3>
@@ -57,11 +57,12 @@ if ($selected !== "") {
   <?php else: ?>
       <?php foreach ($tickets as $t): ?>
         <div style="border:1px solid #999; padding:10px; margin:10px 0;">
-          <b>User:</b> <?= htmlspecialchars($t->username) ?><br>
-          <b>Created:</b> <?= htmlspecialchars($t->created_at) ?><br>
           <b>Status:</b> Active<br>
-          <b>Message:</b> <?= htmlspecialchars($t->message) ?><br><br>
-          <a href="ticket_detail.php?id=<?= (string)$t->_id ?>">View Detail</a>
+          <b>Body:</b> <?= htmlspecialchars($t->message) ?><br>
+          <b>Created At:</b> <?= htmlspecialchars($t->created_at) ?><br>
+          <b>Username:</b> <?= htmlspecialchars($t->username) ?><br>
+          
+          <a href="ticket_detail.php?id=<?= (string)$t->_id ?>">View Details</a>
         </div>
       <?php endforeach; ?>
   <?php endif; ?>

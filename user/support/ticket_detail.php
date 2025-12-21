@@ -43,17 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["comment"])) {
 }
 
 
-// HANDLE DEACTIVATE
-if (isset($_POST["deactivate"])) {
-    $bulk = new MongoDB\Driver\BulkWrite();
-    $bulk->update(
-        ["_id" => new MongoDB\BSON\ObjectId($id)],
-        ['$set' => ['status' => false]]
-    );
-    $manager->executeBulkWrite("cs306.tickets", $bulk);
-    header("Location: tickets.php");
-    exit;
-}
+
 ?>
 
 <!doctype html>
@@ -71,8 +61,6 @@ if (isset($_POST["deactivate"])) {
 </head>
 <body>
 
-<form method="post">
-  <button type="submit" name="deactivate">Deactivate Ticket</button>
 </form>
 
 <h2>Ticket Details</h2>
@@ -110,7 +98,7 @@ if (isset($_POST["deactivate"])) {
   <input
     type="text"
     name="comment_user"
-    placeholder="Username"
+    placeholder="Your username"
     required
   ><br><br>
 
@@ -118,7 +106,8 @@ if (isset($_POST["deactivate"])) {
 </form>
 
 <br>
-<a href="ticket_list.php">Back to Tickets</a>
+<a href="javascript:history.back()">Back to Tickets</a>
+
 
 </body>
 </html>

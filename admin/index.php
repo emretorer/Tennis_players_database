@@ -23,9 +23,9 @@ $cursor = $manager->executeQuery("cs306.tickets", $query);
 
 <?php foreach ($cursor as $ticket): ?>
     <div style="border:1px solid red; padding:10px; margin:10px;">
-        <b>User:</b> <?= $ticket->username ?><br>
-        <b>Message:</b> <?= $ticket->message ?><br>
-        <b>Created:</b> <?= $ticket->created_at ?><br>
+        <b>User:</b> <?= htmlspecialchars($ticket->username) ?><br>
+        <b>Message:</b> <?= htmlspecialchars($ticket->message) ?><br>
+        <b>Created:</b> <?= htmlspecialchars($ticket->created_at) ?><br>
 
         <form method="post" action="update_status.php" style="margin-top:10px;">
             <input type="hidden" name="ticket_id" value="<?= (string)$ticket->_id ?>">
@@ -37,6 +37,12 @@ $cursor = $manager->executeQuery("cs306.tickets", $query);
 
             <button type="submit">Update</button>
         </form>
+
+        <!-- ✅ DOĞRU LINK -->
+        <div style="margin-top:8px;">
+    <a href="ticket_detail.php?id=<?= (string)$ticket->_id ?>">View Details</a>
+</div>
+
     </div>
 <?php endforeach; ?>
 
