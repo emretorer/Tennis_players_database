@@ -50,5 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <button type="submit">Create Ticket</button>
 </form>
 
+
+    <br>
+    <a href="index.php">Go To Homepage</a>
 </body>
 </html>
