@@ -25,8 +25,18 @@ $cursor = $manager->executeQuery("cs306.tickets", $query);
     <div style="border:1px solid red; padding:10px; margin:10px;">
         <b>User:</b> <?= $ticket->username ?><br>
         <b>Message:</b> <?= $ticket->message ?><br>
-        <b>Status:</b> <?= $ticket->status ? "Open" : "Closed" ?><br>
         <b>Created:</b> <?= $ticket->created_at ?><br>
+
+        <form method="post" action="update_status.php" style="margin-top:10px;">
+            <input type="hidden" name="ticket_id" value="<?= (string)$ticket->_id ?>">
+
+            <select name="status">
+                <option value="1" <?= $ticket->status ? "selected" : "" ?>>Active</option>
+                <option value="0" <?= !$ticket->status ? "selected" : "" ?>>Resolved</option>
+            </select>
+
+            <button type="submit">Update</button>
+        </form>
     </div>
 <?php endforeach; ?>
 
