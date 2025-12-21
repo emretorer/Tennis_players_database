@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once "mongo.php";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -14,13 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         "comments"   => []
     ]);
 
+    // 🔑 EN KRİTİK SATIR
+    $manager = getMongoManager();
+
     $manager->executeBulkWrite("cs306.tickets", $bulk);
 
-    echo "Ticket created successfully 🎉<br>";
-    echo '<a href="index.php">Back</a>';
+    echo "Ticket created successfully 🎉";
     exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
