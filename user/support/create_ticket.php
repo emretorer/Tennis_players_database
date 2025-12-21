@@ -4,50 +4,66 @@ ini_set('display_errors', 1);
 
 require_once "mongo.php";
 
+$created = false;
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST["username"];
-    $message  = $_POST["message"];
+    $username = trim($_POST["username"] ?? "");
+    $message  = trim($_POSsT["message"] ?? "");
 
-    $bulk = new MongoDB\Driver\BulkWrite();
-    $bulk->insert([
-        "username"   => $username,
-        "message"    => $message,
-        "created_at" => date("Y-m-d H:i:s"),
-        "status"     => true,
-        "comments"   => []
-    ]);
+    if ($username !== "" && $message !== "") {
+        $bulk = new MongoDB\Driver\BulkWrite();
+        $bulk->insert([
+            "username"   => $username,
+            "message"    => $message,
+            "created_at" => date("Y-m-d H:i:s"),
+            "status"     => true,
+            "comments"   => []
+        ]);
 
-    $manager = getMongoManager();
-    $manager->executeBulkWrite("cs306.tickets", $bulk);
+        $manager = getMongoManager();
+        $manager->executeBulkWrite("cs306.tickets", $bulk);
 
-    // ✅ PDF’teki gibi: ticket oluşturunca listeye dön
-    header("Location: ticket_list.php");
-    exit;
+        // ✅ Ticket oluşturuldu: artık form göstermeyeceğiz
+        $created = true;
+    }
 }
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <title>Create a Ticket</title>
 </head>
 <body>
 
-<!-- ÜST LİNKLER -->
-<p>
-    <a href="ticket_list.php">View Tickets</a><br>
-    <a href="/Tennis_players_database/user">Home</a>
+<?php if ($created): ?>
+    <h2>Ticket created successfully 🎉</h2>
 
-</p>
+    <p>
+        <a href="create_ticket.php">Back to Create Ticket</a><br><br>
+        <a href="ticket_list.php">Go to Ticket List</a>
+    </p>
 
-<h2>Create a Ticket</h2>
+<?php else: ?>
 
-<form method="post">
-    <input type="text" name="username" placeholder="username" required><br><br>
 
-    <textarea name="message" placeholder="message" required></textarea><br><br>
+    <p>
+        <a href="ticket_list.php">View Tickets</a><br>
+        <a href="/Tennis_players_database/user">Home</a>
+    </p>
 
-    <button type="submit">Create Ticket</button>
-</form>
+    <h2>Create a Ticket</h2>
+
+    <form method="post">
+        <input type="text" name="username" placeholder="username" required><br><br>
+
+        <textarea name="message" placeholder="message" required></textarea><br><br>
+
+        <button type="submit">Create Ticket</button>
+    </form>
+
+<?php endif; ?>
+
 </body>
 </html>
