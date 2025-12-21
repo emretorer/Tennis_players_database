@@ -2,77 +2,66 @@
 require_once "../db.php";
 include "../header.php";
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 $msg = "";
 
+function esc($s) { return htmlspecialchars($s ?? ""); }
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
+  $case = $_POST["case"];
 
-    // CASE 1: Valid dates
-    if ($_POST["case"] === "1") {
-        $sql = "
-            INSERT INTO contract (player_id, start_date, end_date, salary)
-            VALUES (1, '2025-01-01', '2025-12-31', 100000)
-        ";
+  try {
 
-        if ($conn->query($sql)) {
-            $msg = "✅ Case 1: Contract inserted successfully. Trigger allowed the insert.";
-        } else {
-            $msg = "❌ Case 1 Error: " . $conn->error;
-        }
+    if ($case === "1") {
+      // ✅ Case 1: VALID dates (should succeed)
+      $sql = "
+        INSERT INTO contract (player_id, sponsor_id, start_date, end_date, amount)
+        VALUES (1, 1, '2025-01-01', '2026-01-01', 50000)
+      ";
+
+      $conn->query($sql);
+      $msg = "✅ Case 1: Contract inserted successfully (start_date < end_date). Trigger allows insert.";
     }
 
-    // CASE 2: Invalid dates (start_date > end_date)
-    if ($_POST["case"] === "2") {
-        $sql = "
-            INSERT INTO contract (player_id, start_date, end_date, salary)
-            VALUES (1, '2025-12-31', '2025-01-01', 100000)
-        ";
+    if ($case === "2") {
+      // ❌ Case 2: INVALID dates (should be blocked by trigger)
+      $sql = "
+        INSERT INTO contract (player_id, sponsor_id, start_date, end_date, amount)
+        VALUES (1, 1, '2026-01-01', '2025-01-01', 50000)
+      ";
 
-        if ($conn->query($sql)) {
-            $msg = "⚠️ Case 2: Insert succeeded (unexpected).";
-        } else {
-            $msg = "✅ Case 2: Trigger blocked the insert → " . $conn->error;
-        }
+      $conn->query($sql);
+      $msg = "⚠️ Case 2: Insert succeeded (UNEXPECTED). Trigger may not be working!";
     }
 
-    // CASE 3: Edge case (equal dates)
-    if ($_POST["case"] === "3") {
-        $sql = "
-            INSERT INTO contract (player_id, start_date, end_date, salary)
-            VALUES (1, '2025-06-01', '2025-06-01', 100000)
-        ";
-
-        if ($conn->query($sql)) {
-            $msg = "🟡 Case 3: Inserted with equal dates. Trigger allowed edge case.";
-        } else {
-            $msg = "🟡 Case 3: Trigger blocked edge case → " . $conn->error;
-        }
+  } catch (mysqli_sql_exception $e) {
+    // Expected error for Case 2
+    if ($case === "2") {
+      $msg = "❌ Case 2: Insert blocked as expected by Trigger 1. Error: " . $e->getMessage();
+    } else {
+      $msg = "❌ Error: " . $e->getMessage();
     }
+  }
 }
 ?>
 
 <div style="border:1px solid #3a5bdc; padding:12px; margin-top:10px;">
-  <b>Trigger 1 (by Korcan Baykal):</b>
-  <span>
-    This trigger validates contract dates before insertion.
-    If <code>start_date &gt; end_date</code>, the trigger prevents the insert.
-  </span>
+  <b>Trigger 1 (by Korcan Baykal):</b><br>
+  Runs <b>BEFORE INSERT</b> on <code>contract</code>.<br>
+  Prevents inserting contracts where <code>start_date &gt; end_date</code>.
 
   <div style="margin-top:10px;">
     <form method="POST" style="display:inline;">
       <button type="submit" name="case" value="1">Case 1</button>
     </form>
-
     <form method="POST" style="display:inline;">
       <button type="submit" name="case" value="2">Case 2</button>
-    </form>
-
-    <form method="POST" style="display:inline;">
-      <button type="submit" name="case" value="3">Case 3</button>
     </form>
   </div>
 
   <?php if (!empty($msg)): ?>
-    <p style="margin-top:12px;"><b>Output:</b> <?= htmlspecialchars($msg) ?></p>
+    <p style="margin-top:12px;"><b>Output:</b> <?= esc($msg) ?></p>
   <?php endif; ?>
 </div>
 
