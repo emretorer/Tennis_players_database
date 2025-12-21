@@ -14,7 +14,7 @@
   <ul>
     <li><a href="triggers/index.php">Triggers</a></li>
     <li><a href="procedures/index.php">Stored Procedures</a></li>
-    <li><a href="support/ticket_list.php">Support (Tickets)</a></li>
+    <li><a href="support/create_ticket.php">Create Support Ticket</a></li>
     <li><a href="../admin/index.php">Admin Panel</a></li>
   </ul>
 
