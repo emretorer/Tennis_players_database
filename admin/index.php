@@ -7,7 +7,7 @@ require_once "../user/support/mongo.php";
 $manager = getMongoManager();
 
 $query = new MongoDB\Driver\Query([
-    //"status" => true
+    "status" => true
 ]);
 
 $cursor = $manager->executeQuery("cs306.tickets", $query);
