@@ -8,7 +8,7 @@ $created = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = trim($_POST["username"] ?? "");
-    $message  = trim($_POSsT["message"] ?? "");
+    $message  = trim($_POST["message"] ?? "");
 
     if ($username !== "" && $message !== "") {
         $bulk = new MongoDB\Driver\BulkWrite();
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <?php else: ?>
 
-
+    <!-- ÜST LİNKLER -->
     <p>
         <a href="ticket_list.php">View Tickets</a><br>
         <a href="/Tennis_players_database/user">Home</a>
