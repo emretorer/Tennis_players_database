@@ -10,9 +10,7 @@ if ($id === "") {
     die("Missing ticket id");
 }
 
-/* =========================
-   FETCH TICKET
-   ========================= */
+
 $query = new MongoDB\Driver\Query([
     "_id" => new MongoDB\BSON\ObjectId($id)
 ]);
@@ -24,13 +22,11 @@ if (count($result) === 0) {
 
 $t = $result[0];
 
-/* =========================
-   HANDLE COMMENT (ADMIN)
-   ========================= */
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["comment"])) {
 
     $commentText = trim($_POST["comment"]);
-    $commentUser = "admin";   // 🔥 OTOMATİK ADMIN
+    $commentUser = "admin";  
 
     if ($commentText !== "") {
 
@@ -54,9 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["comment"])) {
     }
 }
 
-/* =========================
-   HANDLE DEACTIVATE
-   ========================= */
 if (isset($_POST["deactivate"])) {
 
     $bulk = new MongoDB\Driver\BulkWrite();
@@ -67,7 +60,7 @@ if (isset($_POST["deactivate"])) {
 
     $manager->executeBulkWrite("cs306.tickets", $bulk);
 
-    // ✅ Admin ana sayfasına dön
+
     header("Location: index.php");
     exit;
 }

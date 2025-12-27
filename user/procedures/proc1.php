@@ -38,10 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("iiiiss", $tournament_id, $player1_id, $player2_id, $winner_id, $score, $match_date);
     $stmt->execute();
 
-    // Procedure INSERT yaptı => result set dönmeyebilir, bu normal.
     $msg = "✅ sp_add_match called successfully. (INSERT procedure; empty result set is expected.)";
 
-    // Trigger 2 sonrası ranking kontrolü (output gösterme şartını güzel kapatır)
     $afterRanking = renderRow(fetchRanking($conn, $winner_id));
 
     $stmt->close();

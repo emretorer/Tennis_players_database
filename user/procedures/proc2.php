@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
   try {
     $stmt = $conn->prepare("CALL sp_add_contract(?, ?, ?, ?, ?)");
-    // amount decimal => "d"
+
     $stmt->bind_param("iissd", $player_id, $sponsor_id, $start_date, $end_date, $amount);
     $stmt->execute();
     $stmt->close();

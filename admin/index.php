@@ -38,7 +38,7 @@ $cursor = $manager->executeQuery("cs306.tickets", $query);
             <button type="submit">Update</button>
         </form>
 
-        <!-- ✅ DOĞRU LINK -->
+  
         <div style="margin-top:8px;">
     <a href="ticket_detail.php?id=<?= (string)$ticket->_id ?>">View Details</a>
 </div>

@@ -36,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
 
   if ($case === "1" || $case === "2") {
 
-    // BEFORE: new player -> no ranking exists yet
+   
     $before = renderRow([]);
 
-    // Different dummy players for each case
+   
     if ($case === "1") {
       $first = "Trigger3";
       $last  = "PlayerOne";
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
 
       $newPlayerId = (int)$conn->insert_id;
 
-      // AFTER: trigger should have created ranking row
+     
       $afterRow = fetchRanking($conn, $newPlayerId);
       $after = renderRow($afterRow);
 
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
 ?>
 
 <div style="border:1px solid #3a5bdc; padding:12px; margin-top:10px;">
-  <b>Trigger 3 (by Emre Törehan Törer):</b>
+  <b>Trigger 3 (by Aslı Koturoğlu):</b>
   Runs <b>AFTER INSERT</b> on <code>player</code>.
   Automatically creates a corresponding <code>ranking</code> row for each newly inserted player.
 
