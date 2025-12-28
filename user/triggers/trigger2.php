@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
 
     $sql = "
       INSERT INTO matches (tournament_id, player1_id, player2_id, winner_id, score, match_date)
-      VALUES (1, 1, 2, 1, '6-4 6-4', CURDATE())
+      VALUES (1, 1, 4, 1, '6-4 6-4', CURDATE())
     ";
 
     if ($conn->query($sql)) {
