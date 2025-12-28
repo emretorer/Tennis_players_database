@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
   try {
 
     if ($case === "1") {
-      // ✅ Case 1: VALID dates (should succeed)
+
       $sql = "
         INSERT INTO contract (player_id, sponsor_id, start_date, end_date, amount)
         VALUES (1, 1, '2025-01-01', '2026-01-01', 50000)
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
     }
 
     if ($case === "2") {
-      // ❌ Case 2: INVALID dates (should be blocked by trigger)
+      
       $sql = "
         INSERT INTO contract (player_id, sponsor_id, start_date, end_date, amount)
         VALUES (1, 1, '2026-01-01', '2025-01-01', 50000)
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
     }
 
   } catch (mysqli_sql_exception $e) {
-    // Expected error for Case 2
+
     if ($case === "2") {
       $msg = "❌ Case 2: Insert blocked as expected by Trigger 1. Error: " . $e->getMessage();
     } else {

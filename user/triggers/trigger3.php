@@ -36,10 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
 
   if ($case === "1" || $case === "2") {
 
-    // BEFORE: new player -> no ranking exists yet
+   
     $before = renderRow([]);
 
-    // Different dummy players for each case
+   
     if ($case === "1") {
       $first = "Trigger3";
       $last  = "PlayerOne";
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
 
       $newPlayerId = (int)$conn->insert_id;
 
-      // AFTER: trigger should have created ranking row
+     
       $afterRow = fetchRanking($conn, $newPlayerId);
       $after = renderRow($afterRow);
 

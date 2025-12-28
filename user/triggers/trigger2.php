@@ -27,7 +27,6 @@ function renderRow(array $row): string {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
   $case = $_POST["case"];
 
-  // Case 2 winner (ranking'de yoktu): 2
   $CASE2_WINNER = 2;
 
   if ($case === "1") {
@@ -67,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
   }
 
   if ($case === "3") {
-  // GARANTİ FAIL: invalid player1_id (FK varsa patlar)
+
   $winner = 1;
   $before = renderRow(fetchRanking($conn, $winner));
 
@@ -84,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
       $msg = "✅ Case 3: Insert blocked (expected error case) → " . $conn->error;
     }
   } catch (mysqli_sql_exception $e) {
-    // Fatal yerine sayfa içine mesaj bas
+  
     $msg = "❌ Case 3: Insert blocked (expected FK error)." ;
   }
 
