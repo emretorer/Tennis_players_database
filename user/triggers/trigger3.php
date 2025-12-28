@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
 ?>
 
 <div style="border:1px solid #3a5bdc; padding:12px; margin-top:10px;">
-  <b>Trigger 3 (by Emre Törehan Törer):</b>
+  <b>Trigger 3 (by Aslı Koturoğlu):</b>
   Runs <b>AFTER INSERT</b> on <code>player</code>.
   Automatically creates a corresponding <code>ranking</code> row for each newly inserted player.
 
