@@ -12,7 +12,7 @@ include "header.php";
 
   <div style="border:1px solid #3a5bdc; padding:10px; margin:10px 0;">
     <b>Trigger 1 (by Korcan Baykal):</b>
-    Validates contract dates and prevents invalid or overlapping contracts.
+    Validates contract dates.
     <br>
     <a href="triggers/trigger1.php">Go to the trigger's page</a>
   </div>

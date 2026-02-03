@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["case"])) {
 
       $sql = "
         INSERT INTO contract (player_id, sponsor_id, start_date, end_date, amount)
-        VALUES (1, 1, '2025-01-01', '2026-01-01', 50000)
+        VALUES (4, 2, '2025-01-01', '2026-01-01', 50000)
       ";
 
       $conn->query($sql);
